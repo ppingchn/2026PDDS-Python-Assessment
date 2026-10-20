@@ -54,6 +54,7 @@ class PythonListExerciseTest(unittest.TestCase):
 		expected = [
 			{"id": 1, "name": "Alice", "user_id": 1, "price": 1200},
 			{"id": 2, "name": "Bob", "user_id": 2, "price": 500},
+			{"id": 3, "name": "Alice", "user_id": 1, "price": 200},
 		]
 		self.assertEqual(user_orders, expected)
 
