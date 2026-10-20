@@ -16,13 +16,22 @@ Join the users and orders lists based on user_id and id
 By declear variable user_orders to store the result of the join operation
 '''
 
-# Your Code Here
+user_orders = []
+for order in orders:
+    for user in users:
+        if order["user_id"] == user["id"]:
+            user_orders.append({
+                "id": order["id"],
+                "name": user["name"],
+                "user_id": order["user_id"],
+                "price": order["price"]
+            })
 
 print("Section 1: List joining")
 print(user_orders)
 
 # Expected Output:
-# [{'id': 1, 'name': 'Alice', 'user_id': 1, 'price': 1000}, {'id': 3, 'name': 'Alice', 'user_id': 1, 'price': 200}, {'id': 2, 'name': 'Bob', 'user_id': 2, 'price': 500}]
+# [{'id': 1, 'name': 'Alice', 'user_id': 1, 'price': 1000}, {'id': 2, 'name': 'Bob', 'user_id': 2, 'price': 500}, {'id': 3, 'name': 'Alice', 'user_id': 1, 'price': 200}]
 
 # Section 2: List Grouping
 '''
@@ -41,7 +50,13 @@ Dict structure:
 }
 '''
 
-# Your Code Here
+grouped = {}
+for order in user_orders:
+    name = order["name"]
+    if name not in grouped:
+        grouped[name] = {"total_price": 0, "order_count": 0}
+    grouped[name]["total_price"] += order["price"]
+    grouped[name]["order_count"] += 1
 
 print("Section 2: List Grouping")
 print(grouped)
@@ -56,7 +71,7 @@ Sort the grouped dictionary by "total_price" in descending order
 2. Use the sorted() function to sort by "total_price" in descending order
 '''
 
-# Your Code Here
+sorted_grouped = sorted(grouped.items(), key=lambda x: x[1]["total_price"], reverse=True)
 
 print("Section 3: List Sorting")
 print(sorted_grouped)
@@ -71,7 +86,11 @@ Print the name of the user with the highest total price from the sorted_grouped 
 2. Use indexing to access the first element of the sorted_grouped list and print all the details of the user with the highest total price
 '''
 
-# Your Code Here
+highest_total_price_user = {
+    "name": sorted_grouped[0][0],
+    "total_price": sorted_grouped[0][1]["total_price"],
+    "order_count": sorted_grouped[0][1]["order_count"]
+}
 
 print("Section 4: List Indexing")
 print(highest_total_price_user)

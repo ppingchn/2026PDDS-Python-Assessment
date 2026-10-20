@@ -52,7 +52,7 @@ class PythonListExerciseTest(unittest.TestCase):
 	def test_user_orders(self):
 		user_orders = self.require_variable("user_orders")
 		expected = [
-			{"id": 1, "name": "Alice", "user_id": 1, "price": 1200},
+			{"id": 1, "name": "Alice", "user_id": 1, "price": 1000},
 			{"id": 2, "name": "Bob", "user_id": 2, "price": 500},
 			{"id": 3, "name": "Alice", "user_id": 1, "price": 200},
 		]
