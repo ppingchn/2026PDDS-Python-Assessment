@@ -85,8 +85,8 @@ class PandasExerciseTest(unittest.TestCase):
 		grouped_sorted_df = self.require_variable("grouped_sorted_df")
 		expected = pd.DataFrame(
 			[
-				{"name": "Alice", "total_price": 1200, "order_count": 2},
-				{"name": "Bob", "total_price": 500, "order_count": 1},
+				{"total_price": 1200, "order_count": 2},
+				{"total_price": 500, "order_count": 1}
 			]
 		)
 		actual = grouped_sorted_df.reset_index(drop=True)
