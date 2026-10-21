@@ -60,10 +60,10 @@ print(merged_df)
 
 # Expected Output:
 # Merged DataFrame:
-#    id   name  user_id  price
-# 0   1  Alice        1   1000
-# 1   3  Alice        1    200
-# 2   2    Bob        2    500
+#    id_x   name  id_y  user_id  price
+# 0     1  Alice     1        1   1000
+# 1     1  Alice     3        1    200
+# 2     2    Bob     2        2    500
 
 # Section 3: DataFrame Grouping & Sorting
 '''
@@ -97,4 +97,4 @@ print(top_user)
 # Top User:
 # total_price    1200
 # order_count       2
-# name: Alice, dtype: int64
+# Name: 0, dtype: object
