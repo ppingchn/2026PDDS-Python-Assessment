@@ -78,9 +78,10 @@ print(grouped_sorted_df)
 
 # Expected Output:
 # Grouped and Sorted DataFrame:
-#     name  total_price  order_count
-# 0  Alice         1200            2
-# 1    Bob          500            1
+#           total_price  order_count
+# name
+# Alice            1200            2
+# Bob               500            1
 
 # Section 4: DataFrame Indexing
 '''
@@ -97,4 +98,4 @@ print(top_user)
 # Top User:
 # total_price    1200
 # order_count       2
-# Name: 0, dtype: object
+# Name: Alice, dtype: int64
