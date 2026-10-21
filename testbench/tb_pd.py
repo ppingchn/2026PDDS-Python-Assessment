@@ -74,9 +74,9 @@ class PandasExerciseTest(unittest.TestCase):
 		merged_df = self.require_variable("merged_df")
 		expected = pd.DataFrame(
 			[
-				{"id": 1, "name": "Alice", "user_id": 1, "price": 1000},
-				{"id": 3, "name": "Alice", "user_id": 1, "price": 200},
-				{"id": 2, "name": "Bob", "user_id": 2, "price": 500},
+				{"id_x": 1, "name": "Alice", "id_y": 1, "user_id": 1, "price": 1000},
+				{"id_x": 1, "name": "Alice", "id_y": 3, "user_id": 1, "price": 200},
+				{"id_x": 2, "name": "Bob", "id_y": 2, "user_id": 2, "price": 500},
 			]
 		)
 		assert_frame_equal(merged_df.reset_index(drop=True), expected)
