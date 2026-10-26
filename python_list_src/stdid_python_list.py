@@ -12,11 +12,16 @@ orders = [
 
 # Section 1: List joining
 '''
-Join the users and orders lists based on user_id and id
-By declear variable user_orders to store the result of the join operation
+Join the users and orders lists based on user_id and id.
+Declare a variable "user_orders" to store the result of the join operation.
+
+The result must follow the original order of the orders list (i.e., ordered
+by order id: 1, 2, 3). Each record should merge the matching user's name
+into the order dictionary.
 '''
 
 # Your Code Here
+user_orders = None  # Replace this with your solution
 
 print("Section 1: List joining")
 print(user_orders)
@@ -26,11 +31,13 @@ print(user_orders)
 
 # Section 2: List Grouping
 '''
-Group the orders list by user_id and calculate the total price for each user
-1. Declare a dictonary variable "grouped"
-2. Set "name" as the key
-3. Set the initial value as a dictionary (when key doesn't exist)
-4. Increment the "total_price" and "order_count" of the order for each user
+Group user_orders by name and calculate the total price and order count for
+each user. In this dataset each name identifies exactly one user.
+
+1. Declare a dictionary variable "grouped"
+2. Use the user's "name" as the key
+3. Set the initial value as a dictionary (when the key doesn't exist)
+4. Increment the "total_price" and "order_count" for each order
 
 Dict structure:
 {
@@ -42,6 +49,7 @@ Dict structure:
 '''
 
 # Your Code Here
+grouped = None  # Replace this with your solution
 
 print("Section 2: List Grouping")
 print(grouped)
@@ -57,6 +65,7 @@ Sort the grouped dictionary by "total_price" in descending order
 '''
 
 # Your Code Here
+sorted_grouped = None  # Replace this with your solution
 
 print("Section 3: List Sorting")
 print(sorted_grouped)
@@ -66,12 +75,15 @@ print(sorted_grouped)
 
 # Section 4: List Indexing
 '''
-Print the name of the user with the highest total price from the sorted_grouped list
-1. Declare a variable "top_user" to store the name of the user with the highest total price
-2. Use indexing to access the first element of the sorted_grouped list and print all the details of the user with the highest total price
+Print the details of the user with the highest total price from the sorted_grouped list.
+1. Declare a variable "highest_total_price_user" to store the details of the user
+   with the highest total price
+2. Use indexing to access the first element of the sorted_grouped list and build
+   a dictionary with the keys "name", "total_price", and "order_count"
 '''
 
 # Your Code Here
+highest_total_price_user = None  # Replace this with your solution
 
 print("Section 4: List Indexing")
 print(highest_total_price_user)
