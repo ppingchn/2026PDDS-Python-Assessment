@@ -47,7 +47,12 @@ class PythonListExerciseTest(unittest.TestCase):
 		if self.namespace is None:
 			self.fail("The student script did not produce a namespace")
 		self.assertIn(name, self.namespace, f"Missing required variable: {name}")
-		return self.namespace[name]
+		value = self.namespace[name]
+		self.assertIsNotNone(
+			value,
+			f"Variable '{name}' is still None — replace the placeholder with your solution.",
+		)
+		return value
 
 	def test_user_orders(self):
 		user_orders = self.require_variable("user_orders")
