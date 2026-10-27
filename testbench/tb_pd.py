@@ -25,7 +25,35 @@ def find_submission():
 	return candidates[0]
 
 
+class DescriptiveTestResult(unittest.TextTestResult):
+	def addSuccess(self, test):
+		unittest.TestResult.addSuccess(self, test)
+		if self.showAll:
+			self.stream.writeln("PASS")
+		elif self.dots:
+			self.stream.write(".")
+			self.stream.flush()
+
+
+class DescriptiveTestRunner(unittest.TextTestRunner):
+	resultclass = DescriptiveTestResult
+
+
 class PandasExerciseTest(unittest.TestCase):
+	DESCRIPTIONS = {
+		"test_section_1_1_users_dataframe": "Section 1: DataFrame Creation (users_df)",
+		"test_section_1_2_orders_dataframe": "Section 1: DataFrame Creation (orders_df)",
+		"test_section_2_merged_dataframe": "Section 2: DataFrame Merging (merged_df)",
+		"test_section_3_grouped_and_sorted_dataframe": "Section 3: DataFrame Grouping & Sorting (grouped_sorted_df)",
+		"test_section_4_highest_total_price_user": "Section 4: DataFrame Indexing (highest_total_price_user)",
+	}
+
+	def shortDescription(self):
+		return None
+
+	def __str__(self):
+		return self.DESCRIPTIONS.get(self._testMethodName, super().__str__())
+
 	@classmethod
 	def setUpClass(cls):
 		cls.submission_path = None
@@ -57,14 +85,14 @@ class PandasExerciseTest(unittest.TestCase):
 		)
 		return value
 
-	def test_users_dataframe(self):
+	def test_section_1_1_users_dataframe(self):
 		users_df = self.require_variable("users_df")
 		expected = pd.DataFrame(
 			[{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]
 		)
 		assert_frame_equal(users_df.reset_index(drop=True), expected)
 
-	def test_orders_dataframe(self):
+	def test_section_1_2_orders_dataframe(self):
 		orders_df = self.require_variable("orders_df")
 		expected = pd.DataFrame(
 			[
@@ -75,7 +103,7 @@ class PandasExerciseTest(unittest.TestCase):
 		)
 		assert_frame_equal(orders_df.reset_index(drop=True), expected)
 
-	def test_merged_dataframe(self):
+	def test_section_2_merged_dataframe(self):
 		"""
 		Accept any merge order that produces the correct logical content:
 		one row per order, with the matching user's name attached. Row order
@@ -115,7 +143,7 @@ class PandasExerciseTest(unittest.TestCase):
 			check_like=True,  # column order doesn't matter
 		)
 
-	def test_grouped_and_sorted_dataframe(self):
+	def test_section_3_grouped_and_sorted_dataframe(self):
 		"""
 		Verify that grouped_sorted_df contains the correct totals *and* that
 		each total is associated with the correct user name.
@@ -157,21 +185,26 @@ class PandasExerciseTest(unittest.TestCase):
 
 		assert_frame_equal(actual_sorted, expected, check_like=False)
 
-	def test_top_user(self):
-		top_user = self.require_variable("top_user")
-		self.assertIsInstance(top_user, pd.Series)
+	def test_section_4_highest_total_price_user(self):
+		# Accept highest_total_price_user (preferred) or top_user for backwards compatibility.
+		target_var = "highest_total_price_user"
+		if self.namespace is not None and target_var not in self.namespace and "top_user" in self.namespace:
+			target_var = "top_user"
+
+		highest_total_price_user = self.require_variable(target_var)
+		self.assertIsInstance(highest_total_price_user, pd.Series)
 
 		# Accept 'name' stored either as the Series.name or as an index label.
-		if "name" in top_user.index:
-			self.assertEqual(top_user["name"], "Alice",
-				"top_user should belong to 'Alice'")
+		if "name" in highest_total_price_user.index:
+			self.assertEqual(highest_total_price_user["name"], "Alice",
+				f"{target_var} should belong to 'Alice'")
 		else:
-			self.assertEqual(top_user.name, "Alice",
-				"top_user.name should be 'Alice'")
+			self.assertEqual(highest_total_price_user.name, "Alice",
+				f"{target_var}.name should be 'Alice'")
 
-		self.assertEqual(top_user["total_price"], 1200)
-		self.assertEqual(top_user["order_count"], 2)
+		self.assertEqual(highest_total_price_user["total_price"], 1200)
+		self.assertEqual(highest_total_price_user["order_count"], 2)
 
 
 if __name__ == "__main__":
-	unittest.main()
+	unittest.main(testRunner=DescriptiveTestRunner, verbosity=2)

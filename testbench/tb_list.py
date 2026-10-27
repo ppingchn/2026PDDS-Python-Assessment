@@ -22,7 +22,34 @@ def find_submission():
 	return candidates[0]
 
 
+class DescriptiveTestResult(unittest.TextTestResult):
+	def addSuccess(self, test):
+		unittest.TestResult.addSuccess(self, test)
+		if self.showAll:
+			self.stream.writeln("PASS")
+		elif self.dots:
+			self.stream.write(".")
+			self.stream.flush()
+
+
+class DescriptiveTestRunner(unittest.TextTestRunner):
+	resultclass = DescriptiveTestResult
+
+
 class PythonListExerciseTest(unittest.TestCase):
+	DESCRIPTIONS = {
+		"test_section_1_user_orders": "Section 1: List Joining (user_orders)",
+		"test_section_2_grouped": "Section 2: List Grouping (grouped)",
+		"test_section_3_sorted_grouped": "Section 3: List Sorting (sorted_grouped)",
+		"test_section_4_highest_total_price_user": "Section 4: List Indexing (highest_total_price_user)",
+	}
+
+	def shortDescription(self):
+		return None
+
+	def __str__(self):
+		return self.DESCRIPTIONS.get(self._testMethodName, super().__str__())
+
 	@classmethod
 	def setUpClass(cls):
 		cls.submission_path = None
@@ -54,7 +81,7 @@ class PythonListExerciseTest(unittest.TestCase):
 		)
 		return value
 
-	def test_user_orders(self):
+	def test_section_1_user_orders(self):
 		user_orders = self.require_variable("user_orders")
 		expected = [
 			{"id": 1, "name": "Alice", "user_id": 1, "price": 1000},
@@ -63,7 +90,7 @@ class PythonListExerciseTest(unittest.TestCase):
 		]
 		self.assertEqual(user_orders, expected)
 
-	def test_grouped(self):
+	def test_section_2_grouped(self):
 		grouped = self.require_variable("grouped")
 		expected = {
 			"Alice": {"total_price": 1200, "order_count": 2},
@@ -71,7 +98,7 @@ class PythonListExerciseTest(unittest.TestCase):
 		}
 		self.assertEqual(grouped, expected)
 
-	def test_sorted_grouped(self):
+	def test_section_3_sorted_grouped(self):
 		sorted_grouped = self.require_variable("sorted_grouped")
 		expected = [
 			("Alice", {"total_price": 1200, "order_count": 2}),
@@ -79,11 +106,11 @@ class PythonListExerciseTest(unittest.TestCase):
 		]
 		self.assertEqual(sorted_grouped, expected)
 
-	def test_highest_total_price_user(self):
+	def test_section_4_highest_total_price_user(self):
 		highest_total_price_user = self.require_variable("highest_total_price_user")
 		expected = {"name": "Alice", "total_price": 1200, "order_count": 2}
 		self.assertEqual(highest_total_price_user, expected)
 
 
 if __name__ == "__main__":
-	 unittest.main()
+	unittest.main(testRunner=DescriptiveTestRunner, verbosity=2)

@@ -55,9 +55,46 @@ them to check your results.
 
 ## Run the Testbenches
 
+The testbenches are automated testing suites provided to help you verify your solutions locally as you work. Each test case corresponds directly to a section in the exercises, allowing you to check whether your variables, data structures, and outputs meet the assignment requirements before submitting.
+
+- **PASS**: The variable exists and its value matches the expected output.
+- **FAIL**: The variable value or structure does not match the expected output. Read the failure trace in your terminal to see what differed.
+- **Still None**: The variable placeholder (`None`) has not been replaced with your solution yet.
+
 Run these commands from the repository root:
 
 ```bash
-python -m unittest testbench.tb_list
-python -m unittest testbench.tb_pd
+# Recommended: Run directly to see formatted section-by-section PASS / FAIL results
+python testbench/tb_list.py
+python testbench/tb_pd.py
+
+# Alternatively, run via Python's unittest module
+python -m unittest -v testbench.tb_list
+python -m unittest -v testbench.tb_pd
 ```
+
+## Grading Scheme & Rubric
+
+The assessment is graded out of **100 points** (50 points for Python List + 50 points for Pandas):
+
+| Part | Section | Target Variable | Points |
+| :--- | :--- | :--- | :--- |
+| **Part 1: Python List** | Section 1: List Joining | `user_orders` | 12.5 pts |
+| | Section 2: List Grouping | `grouped` | 12.5 pts |
+| | Section 3: List Sorting | `sorted_grouped` | 12.5 pts |
+| | Section 4: List Indexing | `highest_total_price_user` | 12.5 pts |
+| **Part 2: Pandas** | Section 1: DataFrame Creation | `users_df`, `orders_df` | 12.5 pts |
+| | Section 2: DataFrame Merging | `merged_df` | 12.5 pts |
+| | Section 3: DataFrame Grouping & Sorting | `grouped_sorted_df` | 12.5 pts |
+| | Section 4: DataFrame Indexing | `highest_total_price_user` | 12.5 pts |
+| **Total** | | | **100 pts** |
+
+### Grading Policy: Output vs. Required Methods
+
+Grading evaluates **both** output correctness and adherence to the required programming methods:
+
+1. **Automated Verification (Testbench):** The testbench automatically checks that your code runs without unhandled exceptions and produces variables with the required names, types, and values.
+2. **Method Adherence (TA Code Review):** Each section specifies target methods or functions that must be practiced (for example, using the `sorted()` function in Section 3 of the List exercise, and using `pd.merge()`, `groupby()`, `agg()`, and DataFrame indexing in the Pandas exercise).
+   - TAs will inspect your code during manual review.
+   - **Hardcoding values** (e.g., pasting the expected result dictionary/DataFrame directly) or **bypassing the required functions** will result in point deductions for that section, even if the testbench passes.
+
