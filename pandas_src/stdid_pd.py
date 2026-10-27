@@ -100,19 +100,19 @@ print(grouped_sorted_df)
 # Section 4: DataFrame Indexing
 '''
 Index the grouped_sorted_df DataFrame to get the row with the highest total_price.
-Declare a variable "top_user" to store the Series for the user with the highest
+Declare a variable "highest_total_price_user" to store the Series for the user with the highest
 total price from the grouped_sorted_df DataFrame.
-The Series index should be the user's name (i.e., top_user.name == "Alice").
+The Series index should be the user's name (i.e., highest_total_price_user.name == "Alice").
 '''
 
 # Your Code Here
-top_user = None  # Replace this with your solution
+highest_total_price_user = None  # Replace this with your solution
 
-print("Top User:")
-print(top_user)
+print("Highest Total Price User:")
+print(highest_total_price_user)
 
 # Expected Output:
-# Top User:
+# Highest Total Price User:
 # total_price    1200
 # order_count       2
 # Name: Alice, dtype: int64
